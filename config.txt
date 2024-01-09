@@ -1,0 +1,3 @@
+gpio=17=f2
+gpio=27=f2
+gpio=24=f1
