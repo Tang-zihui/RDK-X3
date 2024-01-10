@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Define the base address for the PWM registers
+BASE_ADDRESS=0xa6004000
+
+# Define an array of offsets for the PWM registers
+# Adjust these offsets as needed for your specific registers
+REGISTERS=(0x10 0x58 0x5C 0x60 0x64 0x48 0x4C 0x30 0x34)
+
+# Define an array of values to write to the registers
+VALUES=(0x11111111 0x22222222 0x33333333 0x44444444 0x55555555 0x66666666 0x77777777 0x88888888 0x99999999)
+
+# Loop through the registers and write the values
+for ((i=0; i<${#REGISTERS[@]}; i++)); do
+    ADDRESS=$((BASE_ADDRESS + REGISTERS[i]))
+    VALUE=${VALUES[i]}
+    echo "Writing $VALUE to register at address $ADDRESS"
+    sudo devmem $ADDRESS 32 $VALUE
+done
